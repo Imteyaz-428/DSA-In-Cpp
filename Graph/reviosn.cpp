@@ -15,7 +15,7 @@ public:
     }
     void addEdges(int p, int q) {
         l[p].push_back(q);
-        l[q].push_back(p);
+       
     }
     void display() {
         for(int i=0; i<V;i++) {
@@ -62,6 +62,80 @@ public:
             }
         }
     }
+
+    bool cycle_detection() {
+        int source = 0;
+        queue<pair<int,int>> q;
+        vector<bool>vis(V,false);
+        q.push({source,-1});
+        vis[source] = true;
+        while(q.size() > 0) {
+            auto a = q.front();
+            q.pop();
+            int curr = a.first;
+            int par = a.second;
+            for(int i:l[curr]) {
+                if(!vis[i]) {
+                    q.push({i, curr});
+
+                } else if(i != par) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
+    }
+    bool helper(int source, vector<bool> & vis, int par) {
+        vis[source] = true;
+        for(int i: l[source]) {
+            if(!vis[i]) {
+                if(helper(i,vis,source)) {
+                    return true;
+                }
+            } else if(i != par) {
+                return true;
+            }
+        }
+        return false;
+    }
+    bool cycle_detection_dfs() {
+        int source = 0;
+        vector<bool>vis(V,false);
+        return helper(source, vis, -1);
+
+    }
+    void topological_sort() {
+        int src = 0;
+        queue<int> q;
+    
+        vector<int>indegree(V,0);
+        for(int i=0; i<V; i++) {
+            for(int j:l[i]) {
+                indegree[j]++;
+            }
+        }
+        for(int i=0; i<V;i++) {
+            if(indegree[i] == 0) {
+                q.push(i);
+            }
+        }
+        while(q.size() > 0) {
+
+            int curr = q.front();
+            cout << curr <<  " ";
+            q.pop();
+            for(int i:l[curr]) {
+                indegree[i]--;
+                if(indegree[i] == 0) {
+                    q.push(i);
+                    
+                }
+
+            }
+            
+        }
+    }
 };
 
 int main() {
@@ -73,7 +147,12 @@ int main() {
     V.addEdges(3,2);
     V.display();
     V.bfs();
-    V.dfs();
+    V.dfs(); 
+    cout << endl;
+    cout <<  V.cycle_detection() << endl;
+    cout << V.cycle_detection_dfs() << endl;
+    V.topological_sort();
+
 
 
 }
