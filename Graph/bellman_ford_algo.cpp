@@ -3,7 +3,7 @@
 #include <list>
 using namespace std;
 
-// this does not work on negative weight cycle
+// this does  work on negative weight cycle
 // time comp :- O(V.E)
 // dynamic programming type algorithm
 
