@@ -33,15 +33,16 @@ public:
         }
     }
 
-    int  modified_dfs(int src, int dest, int k, vector<int> &dist) {
-         
+    int  modified_dfs(int src, int dest, int k) {
+        vector<int> dist(V, INT_MAX);
         queue< Node>q;
         dist[src] =0;
+        int stop = 0;
         q.push({src, 0, -1});
-        while(q.size() > 0) {
+        while(q.size() > 0 && stop <= k) {
             Node curr =  q.front();
             q.pop();
-            if(curr.stop > k) {
+            if(curr.stop ==  k+1) {
                 continue;
             }
             for(auto j : l[curr.node]) {
@@ -55,6 +56,7 @@ public:
 
 
             }
+            stop++;
 
         }
         if(dist[dest] == INT_MAX) {
@@ -80,7 +82,7 @@ int main() {
     }
     V.display();
     vector<int> dist(n, INT_MAX);
-    cout << V.modified_dfs(src, dest, k, dist) << endl;
+    cout << V.modified_dfs(src, dest, k) << endl;
 
 
 }
