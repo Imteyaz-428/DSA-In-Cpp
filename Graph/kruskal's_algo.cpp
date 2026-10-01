@@ -64,7 +64,7 @@ public :
         int count =0;
         int mstCost =0;
 
-        for(int i=0; i<edges.size() && count < edges.size() -2; i++) {
+        for(int i=0; i<edges.size() && count < n-1; i++) {
             Edge e = edges[i];
 
             int parU = find(e.u);
