@@ -28,21 +28,13 @@ int main() {
     }
     for(int i=1; i<n+1; i++) {
         for(int j=1; j<sum+1; j++) {
-            // long long a = temp[i-1][j];
-            // long long  b =0;
-            // if(w[i-1] <= j ) {
-            //     b = v[i-1] + temp[i-1][j-w[i-1]];
-                
-            // }
-            // temp[i][j] = max(a, b);
+            
             temp[i][j]  = temp[i-1][j];
             
             if( v[i-1]  <= j) {
                 temp[i][j] = min(temp[i][j],temp[i-1][j-v[i-1]] + w[i-1] );
             }
             
-
-
         }
         
     }
