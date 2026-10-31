@@ -55,7 +55,7 @@ int main() {
         //     i = i-1;
         // }
 
-        if(arr[i-1] == vec[j-1]) {
+        if(arr[i-1] == vec[j-1] && dp[i][j] == dp[i-1][j-1]+1) {
             curr.push_back(arr[i-1]);
             i--;
             j--;
